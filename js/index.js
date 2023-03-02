@@ -37,6 +37,25 @@ const showAllData = (data) => {
     `
     cardContainer.appendChild(cardDiv)
     });
+    // stop loader spinner
+    toggleLoader(false);
 }
+
+// start loader spinner
+const toggleLoader = isLoader => {
+    const loaderSection = document.getElementById('load-spinner');
+    if(isLoader){
+        loaderSection.classList.remove('d-none');
+    }
+    else{
+        loaderSection.classList.add('d-none');
+    }
+}
+
+// btn-see-more and load all data 
+
+// document.getElementById('btn-see-more').addEventListener('click', function(){
+    
+// })
 
 loadAllData();
