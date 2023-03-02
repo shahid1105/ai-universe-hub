@@ -8,7 +8,8 @@ const loadAllData = () => {
 const showAllData = (data) => {
     console.log(data);
     const cardContainer = document.getElementById('card');
-    
+    // show 6 card by default
+    data = data.slice(0, 6);
     data.forEach(singleData => {
         console.log(singleData);
     const cardDiv = document.createElement('div');
