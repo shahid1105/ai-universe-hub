@@ -1,16 +1,16 @@
-const loadAllData = () => {
+const loadAllData = (dataLimit) => {
     const url = ` https://openapi.programming-hero.com/api/ai/tools`;
     fetch(url)
         .then(res => res.json())
-        .then(data => showDefaultData(data.data.tools))
+        .then(data => showDefaultData(data.data.tools, dataLimit))
 }
 
-const showDefaultData = (data) => {
+const showDefaultData = (data, dataLimit) => {
     const cardContainer = document.getElementById('card');
     cardContainer.innerHTML = '';
     // show 6 card by default
     const seeMore = document.getElementById('see-more');
-    if (data.length > 6) {
+    if (data.length > 6 && dataLimit) {
         data = data.slice(0, 6);
         seeMore.classList.remove('d-none');
     }
@@ -20,6 +20,7 @@ const showDefaultData = (data) => {
 
 
     data.forEach(singleData => {
+        console.log(singleData);
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('col');
         cardDiv.innerHTML = `
@@ -78,33 +79,43 @@ const displayUniverseDetails = (universeDetails) => {
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body d-flex flex-row justify-content-evenly">
+        <div class="modal-body d-flex flex-column flex-md-row flex-lg-row justify-content-md-evenly justify-content-lg-evenly mb-5">
         <section>
-        <div class="card" style="width: 20rem;">
+        <div class="card mb-2 mb-md-0 mb-lg-0" style="width: 25rem;">
             <div class="card-body bg-danger-subtle">
             <h5 class="card-title mb-4 fw-bold mb-5">${universeDetails.description}</h5>
 
-            <div class="container text-center mb-5">
+            <div class="container mb-5">
                 <div class="row gap-3">
-                <div style="width: 80px; height: 100px;" class="col-1 bg-white rounded-4">
-                    Column
+                <div style="width: 110px; height: 100px;" class="col-1 bg-white rounded-4 py-3 px-2">
+                   <p class="text-warning fw-semibold">${universeDetails.pricing? universeDetails?.pricing[0].price: 'No data found'} ${universeDetails.pricing? universeDetails.pricing[0].plan: 'No data found'}</p>
                 </div>
-                <div style="width: 80px; height: 100px;" class="col-1 bg-white rounded-4">
-                    Column
+                <div style="width:  110px; height: 100px;" class="col-1 bg-white rounded-4 py-3 px-2">
+                    <p class="text-warning fw-semibold">${universeDetails.pricing? universeDetails?.pricing[1].price: 'No data found'} ${universeDetails.pricing? universeDetails.pricing[1].plan: 'No data found'}</p>
                 </div>
-                <div style="width: 80px; height: 100px;" class="col-1 bg-white rounded-4">
-                    Column
+                <div style="width:  110px; height: 100px;" class="col-1 bg-white rounded-4 py-3 px-2">
+                    <p class="text-danger fw-semibold">${universeDetails.pricing? universeDetails?.pricing[2].price: 'No data found'} ${universeDetails.pricing? universeDetails.pricing[2].plan: 'No data found'}</p> 
                 </div>
                 </div>
             </div>
 
             <div class="container">
             <div class="row">
-              <div class="col-8">
-                Column
+              <div class="col-6">
+              <h5 class="card-title mb-4 fw-bold">Features</h5>
+                <ul class="text-light-emphasis">
+                    <li>${universeDetails.use_cases? universeDetails.use_cases[0].name : 'No data found'}</li>
+                    <li>${universeDetails.use_cases? universeDetails.use_cases[1].name : 'No data found'}</li>
+                    <li>${universeDetails.use_cases? universeDetails.use_cases[0].name : 'No data found'}</li>
+                </ul>
               </div>
-              <div class="col-4">
-                Column
+              <div class="col-6">
+              <h5 class="card-title mb-4 fw-bold">Integrations</h5>
+                <ul class="text-light-emphasis">
+                    <li>${universeDetails.integrations? universeDetails.integrations[0] : 'No data found'}</li>
+                    <li>${universeDetails.integrations? universeDetails.integrations[1] : 'No data found' }</li>
+                    <li>${universeDetails.integrations? universeDetails.integrations[2] : 'No data found'}</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -115,9 +126,10 @@ const displayUniverseDetails = (universeDetails) => {
     </section>
     <section>
         <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="${universeDetails?.image_link[0]}" class="card-img-top p-3" alt="...">
             <div class="card-body">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h5 class="card-title mb-4 fw-bold">${universeDetails.input_output_examples? universeDetails.input_output_examples[0].input : 'No data found'}</h5>
+              <p class="card-text">${universeDetails.input_output_examples? universeDetails.input_output_examples[0].output : 'No data found'}</p>
             </div>
           </div>
     </section>
@@ -130,15 +142,9 @@ const displayUniverseDetails = (universeDetails) => {
 
 // btn-see-more and load all data 
 
-// document.getElementById('btn-see-more').addEventListener('click', function(){
-//     // const url = `https://openapi.programming-hero.com/api/ai/tools`;
-//     // fetch(url)
-//     // .then(res => res.json())
-//     // .then(allData => console.log(allData.data.tools))
-//     loadAllData()
-//     showDefaultData()
-// })
-// const showAllData = ()=> {
+document.getElementById('btn-see-more').addEventListener('click', function(){
+    loadAllData();
+})
 
-// }
-loadAllData();
+loadAllData()
+
