@@ -1,17 +1,17 @@
-const loadAllData = () => {
+const loadAllData = async(dataLimit) => {
     const url = ` https://openapi.programming-hero.com/api/ai/tools`;
-    fetch(url)
-        .then(res => res.json())
-        .then(data => showDefaultData(data.data.tools))
+    const res = await fetch(url);
+    const data = await res.json();
+    showDefaultData(data.data.tools, dataLimit)
 }
 
-const showDefaultData = (data) => {
+const showDefaultData = (data, dataLimit) => {
     const cardContainer = document.getElementById('card');
     cardContainer.innerHTML = '';
     // show 6 card by default
     const seeMore = document.getElementById('see-more');
-    if (data.length > 12) {
-        data = data.slice(0, 12);
+    if (data.length > 6 && dataLimit) {
+        data = data.slice(0, 6);
         seeMore.classList.remove('d-none');
     }
     else {
@@ -61,14 +61,15 @@ const toggleLoader = isLoader => {
     }
 };
 
-// btn-see-more and load all data 
+// btn-see-more and load all data
 
-// document.getElementById('btn-see-more').addEventListener('click', function(){
-//     const url = ` https://openapi.programming-hero.com/api/ai/tools`;
-//     fetch(url)
-//         .then(res => res.json())
-//         .then(data => showDefaultData(data.data.tools))
-// })
+function seeMore(dataLimit){
+    loadAllData(dataLimit)
+}
+
+document.getElementById('btn-see-more').addEventListener('click', function(){
+    seeMore()
+})
 
 
 const universeDetails = id => {
@@ -96,13 +97,13 @@ const displayUniverseDetails = (universeDetails) => {
             <div class="container mb-5">
                 <div class="row gap-1 gap-md-3 gap-lg-3">
                 <div style="width: 90px; height: 100px;" class="col-1 bg-white rounded-4 py-1 px-1">
-                   <p class="text-warning fw-semibold">${universeDetails.pricing? universeDetails?.pricing[0].price: 'Free of cost'} ${universeDetails.pricing? universeDetails.pricing[0].plan: '/basic'}</p>
+                   <p class="text-warning fw-semibold">${universeDetails.pricing? universeDetails?.pricing[0].price: 'Free of cost'} ${universeDetails.pricing? universeDetails.pricing[0].plan: ''}</p>
                 </div>
                 <div style="width:  90px; height: 100px;" class="col-1 bg-white rounded-4 py-1 px-1">
-                    <p class="text-warning fw-semibold">${universeDetails.pricing? universeDetails?.pricing[1].price: 'Free of cost'} ${universeDetails.pricing? universeDetails.pricing[1].plan: '/pro'}</p>
+                    <p class="text-warning fw-semibold">${universeDetails.pricing? universeDetails?.pricing[1].price: 'Free of cost'} ${universeDetails.pricing? universeDetails.pricing[1].plan: ''}</p>
                 </div>
                 <div style="width:  90px; height: 100px;" class="col-1 bg-white rounded-4 py-1 px-1">
-                    <p class="text-danger fw-semibold">${universeDetails.pricing? universeDetails?.pricing[2].price: 'Free of cost'} ${universeDetails.pricing? universeDetails.pricing[2].plan: '/Enterprise'}</p> 
+                    <p class="text-danger fw-semibold">${universeDetails.pricing? universeDetails?.pricing[2].price: 'Free of cost'} ${universeDetails.pricing? universeDetails.pricing[2].plan: ''}</p> 
                 </div>
                 </div>
             </div>
@@ -127,7 +128,9 @@ const displayUniverseDetails = (universeDetails) => {
     <section>
         <div class="card position-relative" style="width: 18rem" >
             <img src="${universeDetails?.image_link[0]}" class="card-img-top p-3" alt="...">
-            <div class="position-absolute top-0 end-0 d-none"><button type="button" class="btn btn-danger btn-sm">${universeDetails.accuracy.score} Accuracy</button></div>
+
+            <div id="accuracy-btn" class="position-absolute top-0 end-0"><button type="button" class="btn btn-danger btn-sm">${universeDetails.accuracy.score} Accuracy</button>
+            </div>
             <div class="card-body">
               <h5 class="card-title mb-4 fw-bold">${universeDetails.input_output_examples? universeDetails.input_output_examples.map(input_examples => `<li>${input_examples.input}</li>`).join(''): 'No Questions Available'}</h5>
               <p class="card-text">${universeDetails.input_output_examples? universeDetails.input_output_examples.map(output_examples => `<li>${output_examples.output}</li>`).join(''): 'No! Not Yet! take a break!!!'}</p>

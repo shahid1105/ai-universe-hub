@@ -1,6 +1,0 @@
-<ul class="text-light-emphasis">
-                    <li>${universeDetails.use_cases? universeDetails.use_cases[0].name : 'No data found'}</li>
-                    <li>${universeDetails.use_cases? universeDetails.use_cases[1].name : 'No data found'}</li>
-                    <li>${universeDetails.use_cases? universeDetails.use_cases[2].name : 'No data found'}</li>
-                    <li>${universeDetails.use_cases? universeDetails.use_cases[2].name : 'No data found'}</li>
-                </ul>
