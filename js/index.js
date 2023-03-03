@@ -1,17 +1,17 @@
-const loadAllData = (dataLimit) => {
+const loadAllData = () => {
     const url = ` https://openapi.programming-hero.com/api/ai/tools`;
     fetch(url)
         .then(res => res.json())
-        .then(data => showDefaultData(data.data.tools, dataLimit))
+        .then(data => showDefaultData(data.data.tools))
 }
 
-const showDefaultData = (data, dataLimit) => {
+const showDefaultData = (data) => {
     const cardContainer = document.getElementById('card');
     cardContainer.innerHTML = '';
     // show 6 card by default
     const seeMore = document.getElementById('see-more');
-    if (data.length > 6 && dataLimit) {
-        data = data.slice(0, 6);
+    if (data.length > 12) {
+        data = data.slice(0, 12);
         seeMore.classList.remove('d-none');
     }
     else {
@@ -28,9 +28,7 @@ const showDefaultData = (data, dataLimit) => {
     <img style="height: 300px; width: 437;" class="img-fluid rounded-2" src="${singleData.image}" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title mb-4 fw-bold">Features</h5>
-      <p class="card-text">1. ${singleData.features[0]}</p>
-      <p class="card-text">2. ${singleData.features[1]}</p>
-      <p class="card-text">3. ${singleData.features[2]}</p>
+      <ol class="card-text">${singleData.features.map(feature => `<li>${feature}</li>`).join('')}</ol>
       </div>
       <hr>
       <div class="d-flex flex-row justify-content-between align-items-center">
@@ -61,7 +59,17 @@ const toggleLoader = isLoader => {
     else {
         loaderSection.classList.add('d-none');
     }
-}
+};
+
+// btn-see-more and load all data 
+
+// document.getElementById('btn-see-more').addEventListener('click', function(){
+//     const url = ` https://openapi.programming-hero.com/api/ai/tools`;
+//     fetch(url)
+//         .then(res => res.json())
+//         .then(data => showDefaultData(data.data.tools))
+// })
+
 
 const universeDetails = id => {
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
@@ -79,22 +87,22 @@ const displayUniverseDetails = (universeDetails) => {
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body d-flex flex-column flex-md-row flex-lg-row justify-content-md-evenly justify-content-lg-evenly mb-5">
+        <div class="modal-body d-flex flex-column flex-md-row flex-lg-row justify-content-md-evenly justify-content-lg-evenly mb-5 gap-2 gap-md-3 gap-lg-3">
         <section>
-        <div class="card mb-2 mb-md-0 mb-lg-0" style="width: 25rem;">
+        <div class="card mb-2 mb-md-0 mb-lg-0" >
             <div class="card-body bg-danger-subtle">
             <h5 class="card-title mb-4 fw-bold mb-5">${universeDetails.description}</h5>
 
             <div class="container mb-5">
-                <div class="row gap-3">
-                <div style="width: 110px; height: 100px;" class="col-1 bg-white rounded-4 py-3 px-2">
-                   <p class="text-warning fw-semibold">${universeDetails.pricing? universeDetails?.pricing[0].price: 'No data found'} ${universeDetails.pricing? universeDetails.pricing[0].plan: 'No data found'}</p>
+                <div class="row gap-1 gap-md-3 gap-lg-3">
+                <div style="width: 90px; height: 100px;" class="col-1 bg-white rounded-4 py-1 px-1">
+                   <p class="text-warning fw-semibold">${universeDetails.pricing? universeDetails?.pricing[0].price: 'Free of cost'} ${universeDetails.pricing? universeDetails.pricing[0].plan: '/basic'}</p>
                 </div>
-                <div style="width:  110px; height: 100px;" class="col-1 bg-white rounded-4 py-3 px-2">
-                    <p class="text-warning fw-semibold">${universeDetails.pricing? universeDetails?.pricing[1].price: 'No data found'} ${universeDetails.pricing? universeDetails.pricing[1].plan: 'No data found'}</p>
+                <div style="width:  90px; height: 100px;" class="col-1 bg-white rounded-4 py-1 px-1">
+                    <p class="text-warning fw-semibold">${universeDetails.pricing? universeDetails?.pricing[1].price: 'Free of cost'} ${universeDetails.pricing? universeDetails.pricing[1].plan: '/pro'}</p>
                 </div>
-                <div style="width:  110px; height: 100px;" class="col-1 bg-white rounded-4 py-3 px-2">
-                    <p class="text-danger fw-semibold">${universeDetails.pricing? universeDetails?.pricing[2].price: 'No data found'} ${universeDetails.pricing? universeDetails.pricing[2].plan: 'No data found'}</p> 
+                <div style="width:  90px; height: 100px;" class="col-1 bg-white rounded-4 py-1 px-1">
+                    <p class="text-danger fw-semibold">${universeDetails.pricing? universeDetails?.pricing[2].price: 'Free of cost'} ${universeDetails.pricing? universeDetails.pricing[2].plan: '/Enterprise'}</p> 
                 </div>
                 </div>
             </div>
@@ -103,19 +111,11 @@ const displayUniverseDetails = (universeDetails) => {
             <div class="row">
               <div class="col-6">
               <h5 class="card-title mb-4 fw-bold">Features</h5>
-                <ul class="text-light-emphasis">
-                    <li>${universeDetails.use_cases? universeDetails.use_cases[0].name : 'No data found'}</li>
-                    <li>${universeDetails.use_cases? universeDetails.use_cases[1].name : 'No data found'}</li>
-                    <li>${universeDetails.use_cases? universeDetails.use_cases[0].name : 'No data found'}</li>
-                </ul>
+              <ul class="text-light-emphasis">${universeDetails.use_cases? universeDetails.use_cases.map(use_case => `<li>${use_case.name}</li>`).join(''): 'No data found'}</ul>
               </div>
               <div class="col-6">
               <h5 class="card-title mb-4 fw-bold">Integrations</h5>
-                <ul class="text-light-emphasis">
-                    <li>${universeDetails.integrations? universeDetails.integrations[0] : 'No data found'}</li>
-                    <li>${universeDetails.integrations? universeDetails.integrations[1] : 'No data found' }</li>
-                    <li>${universeDetails.integrations? universeDetails.integrations[2] : 'No data found'}</li>
-                </ul>
+              <ul class="text-light-emphasis">${universeDetails.integrations? universeDetails.integrations.map(integration => `<li>${integration}</li>`).join(''): 'No data found'}</ul>
               </div>
             </div>
           </div>
@@ -125,11 +125,12 @@ const displayUniverseDetails = (universeDetails) => {
             </div>
     </section>
     <section>
-        <div class="card" style="width: 18rem;">
+        <div class="card position-relative" style="width: 18rem" >
             <img src="${universeDetails?.image_link[0]}" class="card-img-top p-3" alt="...">
+            <div class="position-absolute top-0 end-0 d-none"><button type="button" class="btn btn-danger btn-sm">${universeDetails.accuracy.score} Accuracy</button></div>
             <div class="card-body">
-              <h5 class="card-title mb-4 fw-bold">${universeDetails.input_output_examples? universeDetails.input_output_examples[0].input : 'No data found'}</h5>
-              <p class="card-text">${universeDetails.input_output_examples? universeDetails.input_output_examples[0].output : 'No data found'}</p>
+              <h5 class="card-title mb-4 fw-bold">${universeDetails.input_output_examples? universeDetails.input_output_examples.map(input_examples => `<li>${input_examples.input}</li>`).join(''): 'No Questions Available'}</h5>
+              <p class="card-text">${universeDetails.input_output_examples? universeDetails.input_output_examples.map(output_examples => `<li>${output_examples.output}</li>`).join(''): 'No! Not Yet! take a break!!!'}</p>
             </div>
           </div>
     </section>
@@ -140,11 +141,4 @@ const displayUniverseDetails = (universeDetails) => {
 }
 
 
-// btn-see-more and load all data 
-
-document.getElementById('btn-see-more').addEventListener('click', function(){
-    loadAllData();
-})
-
-loadAllData()
-
+loadAllData();

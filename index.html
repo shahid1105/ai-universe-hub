@@ -1,54 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Universe Hub</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/6cf3b932d7.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Universe Hub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/6cf3b932d7.js" crossorigin="anonymous"></script>
 </head>
+
 <body onload="toggleLoader(true)" class="container">
-    <header>
-        <h1 class="text-center fw-bold mt-5 fs-1">AI Universe Hub</h1>
-        <p class="text-center mt-4"><button type="button" class="btn btn-danger fw-semibold fs-5">Sort By Date</button></p>
-        <!-- load spinners start  -->
-        <section id="load-spinner" class="d-none">
-            <div style="height: 400px;" class="d-flex justify-content-center align-items-center text-success">
-                <div class="spinner-border" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
-        </section>
-        <!-- load spinners end -->
-    </header>
-    <main>
-        <!-- start card section  -->
-        <section class="mt-5">
-            <div id="card" class="row row-cols-1 row-cols-md-3 g-4">
-
-              </div>
-        </section>
-        <!-- end card section  -->
-        <!-- see more btn section start  -->
-        <div id="see-more" class="text-center mt-5 d-none">
-            <button id="btn-see-more" type="button" class="btn btn-danger fw-semibold fs-5">See More</button>
+  <header>
+    <h1 class="text-center fw-bold mt-5 fs-1">AI Universe Hub</h1>
+    <p class="text-center mt-4"><button type="button" class="btn btn-danger fw-semibold fs-5">Sort By Date</button></p>
+    <!-- load spinners start  -->
+    <section id="load-spinner" class="d-none">
+      <div style="height: 400px;" class="d-flex justify-content-center align-items-center text-success">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-        <!-- see more btn section end -->
+      </div>
+    </section>
+    <!-- load spinners end -->
+  </header>
+  <main>
+    <!-- start card section  -->
+    <section class="mt-5">
+      <div id="card" class="row row-cols-1 row-cols-md-3 g-4">
 
-        <!-- modal section start -->
-  <!-- Modal -->
-  <div class="modal fade" id="universeHubModal" tabindex="-1" aria-labelledby="universeHubModalLabel" aria-hidden="true">
-    <div id="modal-container" class="modal-dialog modal-lg modal-dialog-centered">
-      
+      </div>
+    </section>
+    <!-- end card section  -->
+    <!-- see more btn section start  -->
+    <div id="see-more" class="text-center mt-5 d-none">
+      <button id="btn-see-more" type="button" class="btn btn-danger fw-semibold fs-5">See More</button>
     </div>
-  </div>
-        <!-- modal section end -->
-    </main>
+    <!-- see more btn section end -->
+
+    <!-- modal section start -->
+    <!-- Modal -->
+    <div class="modal fade" id="universeHubModal" tabindex="-1" aria-labelledby="universeHubModalLabel"
+      aria-hidden="true">
+      <div id="modal-container" class="modal-dialog modal-lg modal-dialog-centered">
+
+      </div>
+    </div>
+    <!-- modal section end -->
+  </main>
 
 
-    <!-- JS script  -->
-    <script src="js/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <!-- JS script  -->
+  <script src="js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>
