@@ -2,14 +2,23 @@ const loadAllData = () => {
     const url = ` https://openapi.programming-hero.com/api/ai/tools`;
     fetch(url)
         .then(res => res.json())
-        .then(data => showAllData(data.data.tools))
+        .then(data => showDefaultData(data.data.tools))
 }
 
-const showAllData = (data) => {
-    console.log(data);
+const showDefaultData = (data) => {
     const cardContainer = document.getElementById('card');
+    cardContainer.innerHTML = '';
     // show 6 card by default
-    data = data.slice(0, 6);
+    const seeMore = document.getElementById('see-more');
+    if(data.length > 6){
+        data = data.slice(0, 6);
+        seeMore.classList.remove('d-none');
+    }
+    else{
+        seeMore.classList.add('d-none');
+    }
+
+
     data.forEach(singleData => {
         console.log(singleData);
     const cardDiv = document.createElement('div');
@@ -30,7 +39,9 @@ const showAllData = (data) => {
                 <p class="card-text"><i class="fa-solid fa-calendar-days"></i> ${singleData.published_in}</p>
             </div>
             <div>
-                <p><i class="fa-solid fa-arrow-right text-danger border bg-danger-subtle rounded-circle p-2"></i></p>
+                <button onclick="universeDetails('${singleData.id}')" class="border border-0 bg-danger-subtle rounded-circle" data-bs-toggle="modal" data-bs-target="#universeHubModal">
+                <i class="fa-solid fa-arrow-right text-danger p-2"></i>
+                </button>
             </div>
       </div>
   </div>
@@ -52,10 +63,26 @@ const toggleLoader = isLoader => {
     }
 }
 
+const universeDetails = id =>{
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
+    fetch(url)
+    .then(res => res.json())
+    .then(data => console.log(data.data))
+}
+
+
+
 // btn-see-more and load all data 
 
 // document.getElementById('btn-see-more').addEventListener('click', function(){
-    
+//     // const url = `https://openapi.programming-hero.com/api/ai/tools`;
+//     // fetch(url)
+//     // .then(res => res.json())
+//     // .then(allData => console.log(allData.data.tools))
+//     loadAllData()
+//     showDefaultData()
 // })
+// const showAllData = ()=> {
 
+// }
 loadAllData();

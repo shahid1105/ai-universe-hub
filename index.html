@@ -14,7 +14,7 @@
         <p class="text-center mt-4"><button type="button" class="btn btn-danger fw-semibold fs-5">Sort By Date</button></p>
         <!-- load spinners start  -->
         <section id="load-spinner" class="d-none">
-            <div style="height: 100px;" class="d-flex justify-content-center align-items-center text-success">
+            <div style="height: 400px;" class="d-flex justify-content-center align-items-center text-success">
                 <div class="spinner-border" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div>
@@ -31,8 +31,31 @@
         </section>
         <!-- end card section  -->
         <!-- see more btn section start  -->
-        <p class="text-center mt-5"><button id="btn-see-more" type="button" class="btn btn-danger fw-semibold fs-5">See More</button></p>
+        <div id="see-more" class="text-center mt-5 d-none">
+            <button id="btn-see-more" type="button" class="btn btn-danger fw-semibold fs-5">See More</button>
+        </div>
         <!-- see more btn section end -->
+
+        <!-- modal section start -->
+  <!-- Modal -->
+  <div class="modal fade" id="universeHubModal" tabindex="-1" aria-labelledby="universeHubModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex flex-row gap-5">
+            <section>
+                <h1>bangladesh</h1>
+            </section>
+            <section>
+                <h1>bangladesh</h1>
+            </section>
+        </div>
+      </div>
+    </div>
+  </div>
+        <!-- modal section end -->
     </main>
 
 
