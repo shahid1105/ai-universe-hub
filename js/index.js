@@ -1,13 +1,22 @@
+let fetchData = [];
+
 const loadAllData = async(dataLimit) => {
     const url = ` https://openapi.programming-hero.com/api/ai/tools`;
-    const res = await fetch(url);
-    const data = await res.json();
+    // fetch(url)
+    // .then(res => res.json())
+    // .then(data => {
+    //     fetchData = data.data.tools;
+    //     showDefaultData(data.data.tools, dataLimit)})
+    const res = await fetch(url)
+    const data = await res.json()       
     showDefaultData(data.data.tools, dataLimit)
+    fetchData = data.data.tools;
 }
 
 const showDefaultData = (data, dataLimit) => {
     const cardContainer = document.getElementById('card');
     cardContainer.innerHTML = '';
+
     // show 6 card by default
     const seeMore = document.getElementById('see-more');
     if (data.length > 6 && dataLimit) {
@@ -18,9 +27,7 @@ const showDefaultData = (data, dataLimit) => {
         seeMore.classList.add('d-none');
     }
 
-
     data.forEach(singleData => {
-        console.log(singleData);
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('col');
         cardDiv.innerHTML = `
@@ -43,12 +50,32 @@ const showDefaultData = (data, dataLimit) => {
             </div>
       </div>
   </div>
-    `
+    `;
         cardContainer.appendChild(cardDiv)
     });
     // stop loader spinner
     toggleLoader(false);
 }
+
+
+// short data 
+ const shortDateBtn = () => {
+  fetchData.sort((a, b) => new Date(b.published_in) - new Date(a.published_in));
+  showDefaultData(fetchData, true);
+};
+
+
+// btn-see-more and load all data
+
+function seeMore(dataLimit){
+    loadAllData(dataLimit)
+}
+
+seeMore(6)
+
+document.getElementById('btn-see-more').addEventListener('click', function(){
+    seeMore()
+})
 
 // start loader spinner
 const toggleLoader = isLoader => {
@@ -61,15 +88,7 @@ const toggleLoader = isLoader => {
     }
 };
 
-// btn-see-more and load all data
-
-function seeMore(dataLimit){
-    loadAllData(dataLimit)
-}
-
-document.getElementById('btn-see-more').addEventListener('click', function(){
-    seeMore()
-})
+toggleLoader(true);
 
 
 const universeDetails = id => {
@@ -82,6 +101,9 @@ const displayUniverseDetails = (universeDetails) => {
     console.log(universeDetails);
     const modalContainer = document.getElementById('modal-container');
     modalContainer.innerHTML = '';
+
+    let accuracyBtn = universeDetails.accuracy.score ? `<button type="button" class="btn btn-danger btn-sm">${universeDetails.accuracy.score + '% Accuracy'}</button>` : '' ;
+
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal-content');
     modalDiv.innerHTML = `
@@ -129,7 +151,8 @@ const displayUniverseDetails = (universeDetails) => {
         <div class="card position-relative" style="width: 18rem" >
             <img src="${universeDetails?.image_link[0]}" class="card-img-top p-3" alt="...">
 
-            <div id="accuracy-btn" class="position-absolute top-0 end-0"><button type="button" class="btn btn-danger btn-sm">${universeDetails.accuracy.score} Accuracy</button>
+            <div id="accuracy-btn" class="position-absolute top-0 end-0">
+            ${accuracyBtn}
             </div>
             <div class="card-body">
               <h5 class="card-title mb-4 fw-bold">${universeDetails.input_output_examples? universeDetails.input_output_examples.map(input_examples => `<li>${input_examples.input}</li>`).join(''): 'No Questions Available'}</h5>
@@ -140,8 +163,6 @@ const displayUniverseDetails = (universeDetails) => {
         </div>
     `;
 
+
     modalContainer.appendChild(modalDiv);
 }
-
-
-loadAllData();

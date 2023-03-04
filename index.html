@@ -11,10 +11,10 @@
   <script src="https://kit.fontawesome.com/6cf3b932d7.js" crossorigin="anonymous"></script>
 </head>
 
-<body onload="toggleLoader(true), seeMore(6)" id="loadData" class="container">
+<body id="loadData" class="container">
   <header>
     <h1 class="text-center fw-bold mt-5 fs-1">AI Universe Hub</h1>
-    <p class="text-center mt-4"><button type="button" class="btn btn-danger fw-semibold fs-5">Sort By Date</button></p>
+    <p class="text-center mt-4"><button id="short-date-btn" onclick="shortDateBtn()" type="button" class="btn btn-danger fw-semibold fs-5">Sort By Date</button></p>
     <!-- load spinners start  -->
     <section id="load-spinner" class="d-none">
       <div style="height: 400px;" class="d-flex justify-content-center align-items-center text-success">
