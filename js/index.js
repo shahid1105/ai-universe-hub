@@ -64,18 +64,17 @@ const showDefaultData = (data, dataLimit) => {
   showDefaultData(fetchData, true);
 };
 
-
 // btn-see-more and load all data
 
 function seeMore(dataLimit){
     loadAllData(dataLimit)
-}
+};
 
 seeMore(6)
 
 document.getElementById('btn-see-more').addEventListener('click', function(){
     seeMore()
-})
+});
 
 // start loader spinner
 const toggleLoader = isLoader => {
@@ -96,13 +95,13 @@ const universeDetails = id => {
     fetch(url)
         .then(res => res.json())
         .then(data => displayUniverseDetails(data.data))
-}
+};
 const displayUniverseDetails = (universeDetails) => {
     console.log(universeDetails);
     const modalContainer = document.getElementById('modal-container');
     modalContainer.innerHTML = '';
 
-    let accuracyBtn = universeDetails.accuracy.score ? `<button type="button" class="btn btn-danger btn-sm">${universeDetails.accuracy.score + '% Accuracy'}</button>` : '' ;
+    let accuracyBtn = universeDetails.accuracy.score ? `<button type="button" class="btn btn-danger btn-sm">${universeDetails.accuracy.score * 100 + '% Accuracy'}</button>` : '' ;
 
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal-content');
@@ -165,4 +164,4 @@ const displayUniverseDetails = (universeDetails) => {
 
 
     modalContainer.appendChild(modalDiv);
-}
+};
